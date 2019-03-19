@@ -7,6 +7,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.magicbytes.githubtestsample.R
 import com.magicbytes.githubtestsample.network.Post
+import com.magicbytes.githubtestsample.ui.details.PostDetailActivity
 import com.squareup.picasso.Picasso
 
 class PostsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -29,7 +30,8 @@ class PostsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     }
 
     private fun showDetailsPost() {
-        var post = currentPost ?: return
+        val post = currentPost ?: return
 
+        PostDetailActivity.startWithTransition(titleTextView, imageView, post)
     }
 }

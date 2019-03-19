@@ -13,11 +13,16 @@ class PostsModelGithub : PostsModel {
     override fun loadPosts() {
         NetworkManager.service().allPosts().enqueue(object : Callback<List<Post>> {
             override fun onFailure(call: Call<List<Post>>, t: Throwable) {
-                val z = 10 + 1
+                eventsListener?.onErrorLoadingPosts()
             }
 
             override fun onResponse(call: Call<List<Post>>, response: Response<List<Post>>) {
-                val z = 10 + 1
+                val posts = response.body()
+                if (posts != null) {
+                    eventsListener?.onPostsLoaded(posts)
+                } else {
+                    eventsListener?.onErrorLoadingPosts()
+                }
             }
         })
     }
